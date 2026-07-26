@@ -10,7 +10,7 @@ public class HelloController : ControllerBase
     [HttpGet]
     public string Get()
     {
-        return "Hello pidoras tupoy";
+        return "Hello World";
     }
 
 }

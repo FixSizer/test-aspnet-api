@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+F8MpgnJZuw=",
+  "dgSpecHash": "1141u/RMn+g=",
   "success": true,
   "projectFilePath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
   "expectedPackageFiles": [
@@ -37,7 +37,7 @@
     {
       "code": "NU1903",
       "level": "Warning",
-      "message": "Package 'Microsoft.OpenApi' 2.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "message": "У пакета \"Microsoft.OpenApi\" 2.0.0 есть известная уязвимость https://github.com/advisories/GHSA-v5pm-xwqc-g5wc (уровень серьезности: высокий уровень)",
       "projectPath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
