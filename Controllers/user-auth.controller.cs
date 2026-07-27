@@ -73,8 +73,22 @@ public IActionResult UpdateUserData(int id, UserChangeDataDto dto)
         {
             return NotFound();
         }
-        
+
         return Ok(user);
+    }
+
+[HttpPut("{id}")]
+public IActionResult ChangeUserData(int id, UserDataDto dto)
+    {
+        
+       var user = _userAuthService.ChangeUserData(id, dto);
+
+       if (user == null)
+        {
+            return NotFound();
+        }
+        return Ok(user);
+
     }
 
 }

@@ -13,6 +13,13 @@ public UserAuthService(AuthDbContext authContext)
     {
         _authContext = authContext;
     }
+
+public string MakeHashPassword(string password)
+    {
+        string _password = BCrypt.Net.BCrypt.HashPassword(password);
+        return _password;
+
+    }
 public List<UserDataModel> GetUsers()
     {
         return _authContext.Users.ToList();
@@ -29,7 +36,7 @@ public UserDataModel CreateUser(UserDataDto dto)
         Name = dto.Name,
         Email = dto.Email,
         PhoneNumber = dto.PhoneNumber,
-        Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+        Password = MakeHashPassword(dto.Password)
         };
         _authContext.Users.Add(user);
         _authContext.SaveChanges();
@@ -62,7 +69,7 @@ public UserDataModel? UpdateUserData(int id, UserChangeDataDto dto)
         }
         if (dto.Password != null )
         {
-            user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            user.Password = MakeHashPassword(dto.Password);
         }
         if (dto.Email != null)
         {
@@ -74,9 +81,26 @@ public UserDataModel? UpdateUserData(int id, UserChangeDataDto dto)
         }
 
         _authContext.SaveChanges();
-        
+
         return user;
 
+    }
+public UserDataModel? ChangeUserData(int id, UserDataDto dto)
+    {
+        var user = _authContext.Users.Find(id);
+
+        if (user == null)
+        {
+            return null;
+        }
+        
+        user.Name = dto.Name;
+        user.Password = MakeHashPassword(dto.Password);
+        user.Email = dto.Email;
+        user.PhoneNumber = dto.PhoneNumber;
+        _authContext.SaveChanges();
+
+        return user;
     }
 
 }
