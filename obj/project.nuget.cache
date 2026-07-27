@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "1141u/RMn+g=",
+  "dgSpecHash": "UxjLv7ZjedQ=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
+  "projectFilePath": "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\VICTUS\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\VICTUS\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\VICTUS\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.10\\microsoft.aspnetcore.openapi.10.0.10.nupkg.sha512",
     "C:\\Users\\VICTUS\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
@@ -37,10 +38,10 @@
     {
       "code": "NU1903",
       "level": "Warning",
-      "message": "У пакета \"Microsoft.OpenApi\" 2.0.0 есть известная уязвимость https://github.com/advisories/GHSA-v5pm-xwqc-g5wc (уровень серьезности: высокий уровень)",
-      "projectPath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
+      "message": "Package 'Microsoft.OpenApi' 2.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "projectPath": "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
+      "filePath": "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj",
       "libraryId": "Microsoft.OpenApi",
       "targetGraphs": [
         "net10.0"

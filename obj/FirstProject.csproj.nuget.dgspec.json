@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj": {}
+    "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj": {
+    "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
+        "projectUniqueName": "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj",
         "projectName": "FirstProject",
-        "projectPath": "C:\\Projects\\C# Backend\\FirstProject\\FirstProject.csproj",
+        "projectPath": "C:\\Projects\\C# Backend\\test-aspnet-api\\FirstProject.csproj",
         "packagesPath": "C:\\Users\\VICTUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\C# Backend\\FirstProject\\obj\\",
+        "outputPath": "C:\\Projects\\C# Backend\\test-aspnet-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\VICTUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -46,6 +46,10 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.10, )"
