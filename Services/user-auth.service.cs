@@ -7,23 +7,23 @@ namespace test_ASPNET_api.Services;
 public class UserAuthService
 {
     
-private readonly AuthDbContext _context;
+private readonly AuthDbContext _authContext;
 
-public UserAuthService(AuthDbContext context)
+public UserAuthService(AuthDbContext authContext)
     {
-        _context = context;
+        _authContext = authContext;
     }
 public List<UserDataModel> GetUsers()
     {
-        return _context.Users.ToList();
+        return _authContext.Users.ToList();
     }
 
 public UserDataModel? GetUser(int id)
     {
-        return _context.Users.Find(id);
+        return _authContext.Users.Find(id);
     }
 
-public UserDataModel CreateUser(CreateUserDto dto)
+public UserDataModel CreateUser(UserDataDto dto)
     {
         var user = new UserDataModel {
         Name = dto.Name,
@@ -31,10 +31,52 @@ public UserDataModel CreateUser(CreateUserDto dto)
         PhoneNumber = dto.PhoneNumber,
         Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
         };
-        _context.Users.Add(user);
-        _context.SaveChanges();
+        _authContext.Users.Add(user);
+        _authContext.SaveChanges();
 
         return user;
+    }
+public bool DeleteUser(int id)
+    {
+        var user = _authContext.Users.Find(id);
+
+        if (user == null)
+        {
+            return false;
+        }
+        _authContext.Users.Remove(user);
+        _authContext.SaveChanges();
+        return true;
+    }
+
+public UserDataModel? UpdateUserData(int id, UserChangeDataDto dto)
+    {
+        var user = _authContext.Users.Find(id);
+        if (user == null)
+        {
+            return null;
+        }
+        if (dto.Name != null )
+        {
+            user.Name = dto.Name;
+        }
+        if (dto.Password != null )
+        {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+        }
+        if (dto.Email != null)
+        {
+            user.Email = dto.Email;
+        }
+        if (dto.PhoneNumber != null)
+        {
+            user.PhoneNumber = dto.PhoneNumber;
+        }
+
+        _authContext.SaveChanges();
+        
+        return user;
+
     }
 
 }

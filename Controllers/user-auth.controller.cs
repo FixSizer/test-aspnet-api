@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 
 using test_ASPNET_api.DTOs;
@@ -37,16 +38,43 @@ public IActionResult GetUser(int id)
         {
             return NotFound();
         }
-        else 
         return Ok(user);
     }
 
 [HttpPost]
 
-public IActionResult CreateUser(CreateUserDto dto)
+public IActionResult CreateUser(UserDataDto dto)
     {
         var user = _userAuthService.CreateUser(dto);
 
         return Created($"api/users/{user.Id}", user);
     }
+
+[HttpDelete("{id}")]
+public IActionResult DeleteUser(int id)
+    {
+        var isDeleted = _userAuthService.DeleteUser(id);
+
+        if (!isDeleted)
+        {
+            return NotFound();
+        }
+        return NoContent();
+
+    }
+
+[HttpPatch("{id}")]
+
+public IActionResult UpdateUserData(int id, UserChangeDataDto dto)
+    {
+        var user = _userAuthService.UpdateUserData(id, dto);
+
+        if ( user == null )
+        {
+            return NotFound();
+        }
+        
+        return Ok(user);
+    }
+
 }
