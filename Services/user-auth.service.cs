@@ -14,8 +14,9 @@ public UserAuthService(AuthDbContext authContext)
         _authContext = authContext;
     }
 
-public string MakeHashPassword(string password)
+public string MakeHashPassword(string? password)
     {
+
         string _password = BCrypt.Net.BCrypt.HashPassword(password);
         return _password;
 
@@ -56,7 +57,7 @@ public bool DeleteUser(int id)
         return true;
     }
 
-public UserDataModel? UpdateUserData(int id, UserChangeDataDto dto)
+public UserDataModel? UpdateUserData(int id, UserUpdateDataDto dto)
     {
         var user = _authContext.Users.Find(id);
         if (user == null)

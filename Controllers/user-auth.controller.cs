@@ -65,7 +65,7 @@ public IActionResult DeleteUser(int id)
 
 [HttpPatch("{id}")]
 
-public IActionResult UpdateUserData(int id, UserChangeDataDto dto)
+public IActionResult UpdateUserData(int id, UserUpdateDataDto dto)
     {
         var user = _userAuthService.UpdateUserData(id, dto);
 

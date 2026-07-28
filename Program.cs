@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 using test_ASPNET_api.Data;
 using test_ASPNET_api.Services;
