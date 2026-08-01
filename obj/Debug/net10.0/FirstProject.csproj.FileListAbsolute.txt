@@ -246,3 +246,12 @@ C:\Projects\C# Backend\test-aspnet-api\obj\Debug\net10.0\swae.build.ex.cache
 C:\Projects\C# Backend\test-aspnet-api\obj\Debug\net10.0\FirstPro.5031491B.Up2Date
 C:\Projects\C# Backend\test-aspnet-api\obj\Debug\net10.0\FirstProject.genruntimeconfig.cache
 C:\Projects\C# Backend\test-aspnet-api\obj\Debug\net10.0\ref\FirstProject.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+C:\Projects\C# Backend\test-aspnet-api\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll

@@ -4,10 +4,10 @@ using test_ASPNET_api.Models;
 
 namespace test_ASPNET_api.Data;
 
-public class AuthDbContext : DbContext
+public class UsersDbContext : DbContext
 {
     
-public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
+public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options)
     {
         
     }

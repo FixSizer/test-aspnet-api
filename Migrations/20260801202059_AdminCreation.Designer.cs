@@ -11,9 +11,9 @@ using test_ASPNET_api.Data;
 
 namespace FirstProject.Migrations
 {
-    [DbContext(typeof(AuthDbContext))]
-    [Migration("20260728194704_AddedUserRoles")]
-    partial class AddedUserRoles
+    [DbContext(typeof(UsersDbContext))]
+    [Migration("20260801202059_AdminCreation")]
+    partial class AdminCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,21 +34,26 @@ namespace FirstProject.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Role")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
