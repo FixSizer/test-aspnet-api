@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using test_ASPNET_api.DTOs;
 using test_ASPNET_api.Services;
 
@@ -23,17 +24,15 @@ public AuthController(AuthService authService)
 public async Task<IActionResult> Login(UserLoginDto dto)
     {
         
-        var token = await _authService.Login(dto);
+        var tokensData = await _authService.Login(dto);
 
-        if(token == null)
+        
+        if(tokensData == null)
         {
             return Unauthorized("Incorrect data");
         }
 
-        return Ok(new
-        {
-            token
-        });
+        return Ok(tokensData);
 
     }
 
@@ -48,5 +47,18 @@ public async Task<IActionResult> Register(UserDataDto dto)
         }
 
         return Ok("Registration is successful");
+    }
+
+[HttpPost("refresh")]
+
+public async Task<IActionResult> Refresh(RefreshTokenRequestDto request)
+    {
+        var requestResponse = await _authService.Refresh(request);
+
+        if (requestResponse == null)
+        {
+            return Unauthorized("Invalid refresh token");
+        }
+        return Ok(requestResponse);
     }
 }

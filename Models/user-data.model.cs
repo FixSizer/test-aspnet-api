@@ -4,15 +4,16 @@ public class UserDataModel
 {
     public int Id { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = null!;
     
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; } = null!;
     
-    public string PasswordHash { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = null!;
 
-    public string PhoneNumber { get; set; } = string.Empty;
+    public string? PhoneNumber { get; set; }
 
-    public UserRole Role { get; set; } = UserRole.USER;
-    public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
+    public UserRole Role { get; set; } 
+    public DateTime RegistrationDate { get; set; } 
 
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }

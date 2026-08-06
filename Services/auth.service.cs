@@ -13,8 +13,12 @@ private readonly AccessTokenService _accessTokenService;
 
 private readonly IPasswordService _passwordService;
 
-public AuthService(UsersDbContext usersContext, AccessTokenService accessTokenService, IPasswordService passwordService)
+private readonly RefreshTokenService _refreshTokenService;
+
+public AuthService(UsersDbContext usersContext, AccessTokenService accessTokenService, 
+IPasswordService passwordService, RefreshTokenService refreshTokenService)
     {
+        _refreshTokenService = refreshTokenService;
         _usersContext = usersContext;
         _accessTokenService = accessTokenService;
         _passwordService = passwordService;
@@ -34,7 +38,9 @@ public async Task<bool> Register(UserDataDto dto)
             Name = dto.Name,
             PasswordHash = _passwordService.HashPassword(dto.Password),
             Email = dto.Email,
-            PhoneNumber = dto.PhoneNumber
+            PhoneNumber = dto.PhoneNumber,
+            RegistrationDate = DateTime.UtcNow,
+            Role = UserRole.USER
         };
 
         await _usersContext.Users.AddAsync(user);
@@ -43,7 +49,7 @@ public async Task<bool> Register(UserDataDto dto)
         return true;
     }
 
-public async Task<string?> Login(UserLoginDto dto)
+public async Task<AuthResponseDto?> Login(UserLoginDto dto)
     {
         var user = await _usersContext.Users.FirstOrDefaultAsync(x => x.Name == dto.Name);
 
@@ -59,6 +65,62 @@ public async Task<string?> Login(UserLoginDto dto)
             return null;
         }
 
-        return _accessTokenService.CreateAccessToken(user);
+        string accessToken = _accessTokenService.CreateAccessToken(user);
+
+        var refreshEntity = _refreshTokenService.CreateToken(user.Id, out string refreshToken);
+
+        await _usersContext.RefreshTokens.AddAsync(refreshEntity);
+
+        await _usersContext.SaveChangesAsync();
+
+        var authResponse = new AuthResponseDto
+        {
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
+        };
+
+        return authResponse;
     }
+
+public async Task<AuthResponseDto?> Refresh(RefreshTokenRequestDto request)
+    {
+        
+        var tokenHash = _refreshTokenService.HashToken(request.RefreshToken);
+
+        var storedToken = await _usersContext.RefreshTokens.Include(x => x.User).FirstOrDefaultAsync(x => x.TokenHash == tokenHash);
+
+        if (storedToken == null)
+        {
+            return null;
+        }
+        if (storedToken.IsRevoked)
+        {
+            return null;
+        }
+        if (storedToken.Expires < DateTime.UtcNow)
+        {
+            return null;
+        }
+
+        storedToken.IsRevoked = true;
+
+        var newRefreshEntity = _refreshTokenService.CreateToken(storedToken.UserId, out string refreshToken);
+
+        await _usersContext.RefreshTokens.AddAsync(newRefreshEntity);
+
+        var accessToken = _accessTokenService.CreateAccessToken(storedToken.User);
+
+        await _usersContext.SaveChangesAsync();
+
+        var authResponse = new AuthResponseDto
+        {
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
+        };
+
+        return authResponse;
+
+    }
+
+
 }

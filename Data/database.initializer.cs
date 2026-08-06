@@ -25,7 +25,9 @@ public class DbInitializer
             {
               Name = _configuration["Admin:Username"]!,
               PasswordHash = _passwordService.HashPassword(_configuration["Admin:Password"]!),
-              Role = UserRole.ADMIN
+              Role = UserRole.ADMIN,
+              Email = _configuration["Admin:Email"]!,
+              RegistrationDate = DateTime.UtcNow
             };
             await _usersDbContext.Users.AddAsync(admin);
             await _usersDbContext.SaveChangesAsync();

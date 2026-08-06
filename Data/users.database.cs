@@ -20,4 +20,6 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
     
     public DbSet<UserDataModel> Users { get; set; } = null!;
 
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
 }

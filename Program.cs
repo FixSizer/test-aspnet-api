@@ -5,7 +5,6 @@ using System.Text;
 
 using test_ASPNET_api.Data;
 using test_ASPNET_api.Services;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +30,7 @@ builder.Services
 .AddScoped<UsersService>()
 .AddScoped<AccessTokenService>()
 .AddScoped<DbInitializer>()
+.AddScoped<RefreshTokenService>()
 .AddScoped<IPasswordService, PasswordService>();
 
 builder.Services.AddControllers();
