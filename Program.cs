@@ -31,6 +31,7 @@ builder.Services
 .AddScoped<AccessTokenService>()
 .AddScoped<DbInitializer>()
 .AddScoped<RefreshTokenService>()
+.AddScoped<CookieService>()
 .AddScoped<IPasswordService, PasswordService>();
 
 builder.Services.AddControllers();

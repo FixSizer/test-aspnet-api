@@ -1,3 +1,4 @@
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,12 @@ public class AuthController : ControllerBase
     
 private readonly AuthService _authService;
 
-public AuthController(AuthService authService)
+private readonly CookieService _cookieService;
+
+public AuthController(AuthService authService, CookieService cookieService)
     {
         _authService = authService;
+        _cookieService = cookieService;
     }
 
 [HttpPost("login")]
@@ -32,7 +36,16 @@ public async Task<IActionResult> Login(UserLoginDto dto)
             return Unauthorized("Incorrect data");
         }
 
-        return Ok(tokensData);
+        var accessToken = tokensData.AccessToken;
+
+        var refreshToken = tokensData.RefreshToken;
+
+        _cookieService.SetRefreshTokenCookie(Response, refreshToken);
+
+        return Ok(new
+        {
+            accessToken
+        });
 
     }
 
@@ -53,12 +66,29 @@ public async Task<IActionResult> Register(UserDataDto dto)
 
 public async Task<IActionResult> Refresh(RefreshTokenRequestDto request)
     {
-        var requestResponse = await _authService.Refresh(request);
+        var primalRefreshToken = _cookieService.GetRefreshToken(Request);
+
+        if (primalRefreshToken == null)
+        {
+            return Unauthorized("Invalid refresh token");
+        }
+
+        var requestResponse = await _authService.Refresh(primalRefreshToken);
 
         if (requestResponse == null)
         {
             return Unauthorized("Invalid refresh token");
         }
-        return Ok(requestResponse);
+
+        var accessToken = requestResponse.AccessToken;
+
+        var refreshToken = requestResponse.RefreshToken;
+
+        _cookieService.SetRefreshTokenCookie(Response, refreshToken);
+
+        return Ok(new
+        {
+            accessToken
+        });
     }
 }

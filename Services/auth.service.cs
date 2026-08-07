@@ -82,10 +82,10 @@ public async Task<AuthResponseDto?> Login(UserLoginDto dto)
         return authResponse;
     }
 
-public async Task<AuthResponseDto?> Refresh(RefreshTokenRequestDto request)
+public async Task<AuthResponseDto?> Refresh(string primalRefreshToken)
     {
         
-        var tokenHash = _refreshTokenService.HashToken(request.RefreshToken);
+        var tokenHash = _refreshTokenService.HashToken(primalRefreshToken);
 
         var storedToken = await _usersContext.RefreshTokens.Include(x => x.User).FirstOrDefaultAsync(x => x.TokenHash == tokenHash);
 
