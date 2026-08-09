@@ -49,6 +49,20 @@ public async Task<IActionResult> Login(UserLoginDto dto)
 
     }
 
+[HttpPost("logout")]
+public async Task<IActionResult> Logout()
+    {
+        var refreshToken = _cookieService.GetRefreshToken(Request);
+
+        await _authService.Logout(refreshToken);
+
+        _cookieService.RemoveRefreshTokenCookie(Response);
+
+        return Ok();
+
+
+    }
+
 [HttpPost("register")]
 public async Task<IActionResult> Register(UserDataDto dto)
     {
@@ -64,7 +78,7 @@ public async Task<IActionResult> Register(UserDataDto dto)
 
 [HttpPost("refresh")]
 
-public async Task<IActionResult> Refresh(RefreshTokenRequestDto request)
+public async Task<IActionResult> Refresh()
     {
         var primalRefreshToken = _cookieService.GetRefreshToken(Request);
 

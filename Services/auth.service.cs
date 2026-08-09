@@ -82,6 +82,28 @@ public async Task<AuthResponseDto?> Login(UserLoginDto dto)
         return authResponse;
     }
 
+public async Task Logout(string? refreshToken)
+    {
+
+        if (refreshToken == null)
+        {
+            return;
+        }
+        var tokenHash = _refreshTokenService.HashToken(refreshToken);
+
+        var storedToken = await _usersContext.RefreshTokens.FirstOrDefaultAsync(x => x.TokenHash == tokenHash);
+
+        if (storedToken == null)
+        {
+            return;
+        }
+
+        storedToken.IsRevoked = true;
+
+        await _usersContext.SaveChangesAsync();
+
+    }
+
 public async Task<AuthResponseDto?> Refresh(string primalRefreshToken)
     {
         
